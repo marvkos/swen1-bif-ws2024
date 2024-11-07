@@ -37,3 +37,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+
+### Lecture ###
+MonsterTradingCards.exercise.curl.bat
+mtcg-api.yaml
