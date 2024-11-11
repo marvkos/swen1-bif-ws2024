@@ -42,3 +42,4 @@ build/
 ### Lecture ###
 MonsterTradingCards.exercise.curl.bat
 mtcg-api.yaml
+/api
