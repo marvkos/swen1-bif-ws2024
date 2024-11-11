@@ -11,7 +11,7 @@ class HttpResponseFormatterTest {
     private final HttpResponseFormatter httpResponseFormatter = new HttpResponseFormatter();
 
     @Test
-    public void give_statusOk_then_formatStatusLineCorrectly() {
+    public void given_statusOk_when_useFormatter_then_formatStatusLineCorrectly() {
         Response response = new Response();
         response.setStatus(Status.OK);
 
@@ -21,7 +21,7 @@ class HttpResponseFormatterTest {
     }
 
     @Test
-    public void give_statusInternalServerError_then_formatStatusLineCorrectly() {
+    public void given_statusInternalServerError_when_useFormatter_then_formatStatusLineCorrectly() {
         Response response = new Response();
         response.setStatus(Status.INTERNAL_SERVER_ERROR);
 
@@ -31,7 +31,7 @@ class HttpResponseFormatterTest {
     }
 
     @Test
-    public void give_authenticationHeader_then_formatHeaderCorrectly() {
+    public void given_authenticationHeader_when_useFormatter_then_formatHeaderCorrectly() {
         Response response = new Response();
         response.setStatus(Status.OK);
         response.setHeader("Authentication", "Bearer example-token");
@@ -42,7 +42,7 @@ class HttpResponseFormatterTest {
     }
 
     @Test
-    public void give_body_then_formatContentLengthCorrectly() {
+    public void given_body_when_useFormatter_then_formatContentLengthCorrectly() {
         Response response = new Response();
         response.setStatus(Status.INTERNAL_SERVER_ERROR);
         response.setHeader("Content-Type", "application/json");
@@ -57,7 +57,7 @@ class HttpResponseFormatterTest {
     }
 
     @Test
-    public void give_body_then_formatBodyCorrectly() {
+    public void given_body_when_useFormatter_then_formatBodyCorrectly() {
         Response response = new Response();
         response.setStatus(Status.INTERNAL_SERVER_ERROR);
         response.setHeader("Content-Type", "application/json");
@@ -70,7 +70,7 @@ class HttpResponseFormatterTest {
     }
 
     @Test
-    public void give_body_then_formatEmptyLineCorrectly() {
+    public void given_body_when_useFormatter_then_formatEmptyLineCorrectly() {
         Response response = new Response();
         response.setStatus(Status.INTERNAL_SERVER_ERROR);
         response.setHeader("Content-Type", "application/json");
@@ -83,7 +83,7 @@ class HttpResponseFormatterTest {
     }
 
     @Test
-    public void give_noStatus_then_noHttpStatusException() {
+    public void given_noStatus_when_useFormatter_then_noHttpStatusException() {
         Response response = new Response();
 
         assertThrows(

@@ -27,56 +27,56 @@ class HttpRequestParserTest {
     private final HttpRequestParser requestParser = new HttpRequestParser();
 
     @Test
-    public void give_httpGetRequest_then_parseMethod() {
+    public void given_httpGetRequest_when_useParser_then_parseMethod() {
         Request request = requestParser.parse(HTTP_GET);
 
         assertEquals(Method.GET, request.getMethod());
     }
 
     @Test
-    public void give_httpGetRequest_then_parsePath() {
+    public void given_httpGetRequest_when_useParser_then_parsePath() {
         Request request = requestParser.parse(HTTP_GET);
 
         assertEquals("/home", request.getPath());
     }
 
     @Test
-    public void give_httpGetRequest_then_parseHostHeader() {
+    public void given_httpGetRequest_when_useParser_then_parseHostHeader() {
         Request request = requestParser.parse(HTTP_GET);
 
         assertEquals("localhost:10001", request.getHeader("Host"));
     }
 
     @Test
-    public void give_httpGetRequest_then_parseAuthToken() {
+    public void given_httpGetRequest_when_useParser_then_parseAuthToken() {
         Request request = requestParser.parse(HTTP_GET);
 
         assertEquals("Bearer example-token", request.getHeader("Authentication"));
     }
 
     @Test
-    public void given_httpPostRequest_then_parseMethod() {
+    public void given_httpPostRequest_when_useParser_then_parseMethod() {
         Request request = requestParser.parse(HTTP_POST);
 
         assertEquals(Method.POST, request.getMethod());
     }
 
     @Test
-    public void given_httpPostRequest_then_parseContentLength() {
+    public void given_httpPostRequest_when_useParser_then_parseContentLength() {
         Request request = requestParser.parse(HTTP_POST);
 
         assertEquals("31", request.getHeader("Content-Length"));
     }
 
     @Test
-    public void given_httpPostRequest_then_parseContentType() {
+    public void given_httpPostRequest_when_useParser_then_parseContentType() {
         Request request = requestParser.parse(HTTP_POST);
 
         assertEquals("application/json", request.getHeader("Content-Type"));
     }
 
     @Test
-    public void given_httpPostRequest_then_parseBody() {
+    public void given_httpPostRequest_when_useParser_then_parseBody() {
         Request request = requestParser.parse(HTTP_POST);
 
         String body = """
