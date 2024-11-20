@@ -7,6 +7,8 @@ import at.technikum.server.http.Request;
 import at.technikum.server.http.Response;
 import at.technikum.server.http.Status;
 
+import java.util.List;
+
 public class StudentController extends Controller {
 
     private final StudentService studentService = new StudentService();
@@ -17,52 +19,25 @@ public class StudentController extends Controller {
         if (request.getMethod().equals(Method.POST)) {
             return create(request);
         }
+        if (request.getMethod().equals(Method.GET)) {
+            return readAll();
+        }
 
         return null;
     }
 
-    public Response create(Request request) {
+    private Response create(Request request) {
 
         // request --> student
-        Student student = extractFromBody(request.getBody());
+        Student student = fromBody(request.getBody(), Student.class);
         student = studentService.create(student);
 
-        Response response = new Response();
-        response.setStatus(Status.CREATED);
-        response.setHeader("Content-Type", "application/json");
-        response.setBody(
-                "{ \"studentId\": \"%s\" }"
-                        .formatted(student.getId())
-        );
-
-        return response;
+        return json(Status.CREATED, student);
     }
 
-    private Student extractFromBody(String body) {
-        String firstName = "";
-        String lastName = "";
+    private Response readAll() {
+        List<Student> students = studentService.getAll();
 
-        String[] lines = body.split("\n");
-        for (String line : lines) {
-            if (!line.contains(":")) {
-                continue;
-            }
-
-            String[] keyValue = line.split(":");
-            String key = keyValue[0].trim().replace("\"", "");
-            String value = keyValue[1]
-                    .trim()
-                    .replace("\"", "")
-                    .replace(",", "");
-
-            if (key.equals("firstName")) {
-                firstName = value;
-            }
-            if (key.equals("lastName")) {
-                lastName = value;
-            }
-        }
-
-        return new Student(firstName, lastName);
+        return json(Status.OK, students);
     }
 }

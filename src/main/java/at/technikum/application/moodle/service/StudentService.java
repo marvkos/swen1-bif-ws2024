@@ -4,6 +4,8 @@ import at.technikum.application.moodle.entity.Student;
 import at.technikum.application.moodle.repository.StudentMemoryRepository;
 import at.technikum.application.moodle.repository.StudentRepository;
 
+import java.util.List;
+
 public class StudentService {
 
     private final StudentRepository studentRepository;
@@ -16,5 +18,9 @@ public class StudentService {
         // validate data
         // does student already exist
         return studentRepository.save(student);
+    }
+
+    public List<Student> getAll() {
+        return studentRepository.findAll();
     }
 }

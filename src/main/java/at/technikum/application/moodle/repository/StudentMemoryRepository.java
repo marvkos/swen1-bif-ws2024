@@ -20,4 +20,9 @@ public class StudentMemoryRepository implements StudentRepository {
 
         return student;
     }
+
+    @Override
+    public List<Student> findAll() {
+        return this.students;
+    }
 }

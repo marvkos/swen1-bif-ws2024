@@ -1,9 +1,42 @@
 package at.technikum.application.moodle.controller;
 
+import at.technikum.application.moodle.exception.InvalidBodyException;
+import at.technikum.application.moodle.exception.JsonParserException;
 import at.technikum.server.http.Request;
 import at.technikum.server.http.Response;
+import at.technikum.server.http.Status;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class Controller {
 
+    private final ObjectMapper objectMapper;
+
+    public Controller() {
+        this.objectMapper = new ObjectMapper();
+    }
+
     public abstract Response handle(Request request);
+
+
+    protected <T> T fromBody(String body, Class<T> type) {
+        try {
+            return objectMapper.readValue(body, type);
+        } catch (JsonProcessingException e) {
+            throw new InvalidBodyException(e);
+        }
+    }
+
+    protected Response json(Status status, Object object) {
+        Response response = new Response();
+        response.setStatus(status);
+        response.setHeader("Content-Type", "application/json");
+        try {
+            response.setBody(objectMapper.writeValueAsString(object));
+        } catch (JsonProcessingException e) {
+            throw new JsonParserException(e);
+        }
+
+        return response;
+    }
 }

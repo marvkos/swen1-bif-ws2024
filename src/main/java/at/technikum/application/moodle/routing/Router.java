@@ -21,7 +21,7 @@ public class Router {
             return route.getController();
         }
 
-        throw new ControllerNotFound(path);
+        throw new ControllerNotFoundException(path);
     }
 
     public void addRoute(String route, Controller controller) {
