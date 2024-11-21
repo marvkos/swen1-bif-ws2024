@@ -1,6 +1,7 @@
 package at.technikum.application.moodle.service;
 
 import at.technikum.application.moodle.entity.Student;
+import at.technikum.application.moodle.exception.EntityNotFoundException;
 import at.technikum.application.moodle.repository.StudentMemoryRepository;
 import at.technikum.application.moodle.repository.StudentRepository;
 
@@ -22,5 +23,10 @@ public class StudentService {
 
     public List<Student> getAll() {
         return studentRepository.findAll();
+    }
+
+    public Student getById(int id) {
+        return studentRepository.find(id)
+                .orElseThrow(() -> new EntityNotFoundException(Student.class.getName(), id));
     }
 }

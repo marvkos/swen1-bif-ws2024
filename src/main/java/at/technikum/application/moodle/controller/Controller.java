@@ -6,6 +6,7 @@ import at.technikum.server.http.Request;
 import at.technikum.server.http.Response;
 import at.technikum.server.http.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class Controller {
@@ -14,6 +15,9 @@ public abstract class Controller {
 
     public Controller() {
         this.objectMapper = new ObjectMapper();
+        this.objectMapper.configure(
+                MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true
+        );
     }
 
     public abstract Response handle(Request request);

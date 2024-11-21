@@ -4,6 +4,7 @@ import at.technikum.application.moodle.entity.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentMemoryRepository implements StudentRepository {
 
@@ -24,5 +25,15 @@ public class StudentMemoryRepository implements StudentRepository {
     @Override
     public List<Student> findAll() {
         return this.students;
+    }
+
+    @Override
+    public Optional<Student> find(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Student delete(Student student) {
+        return null;
     }
 }
