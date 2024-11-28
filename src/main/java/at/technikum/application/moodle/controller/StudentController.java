@@ -11,7 +11,12 @@ import java.util.List;
 
 public class StudentController extends Controller {
 
-    private final StudentService studentService = new StudentService();
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        super();
+        this.studentService = studentService;
+    }
 
     @Override
     public Response handle(Request request) {
@@ -23,6 +28,7 @@ public class StudentController extends Controller {
             return readAll();
         }
 
+        // TODO: fix null return, should result in 405
         return null;
     }
 

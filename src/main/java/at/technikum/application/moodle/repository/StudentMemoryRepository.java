@@ -16,7 +16,7 @@ public class StudentMemoryRepository implements StudentRepository {
 
     @Override
     public Student save(Student student) {
-        student.setId(this.students.size() + 1);
+        student.setId(String.valueOf(this.students.size() + 1));
         this.students.add(student);
 
         return student;

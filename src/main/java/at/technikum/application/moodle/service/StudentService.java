@@ -6,18 +6,20 @@ import at.technikum.application.moodle.repository.StudentMemoryRepository;
 import at.technikum.application.moodle.repository.StudentRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentService() {
-        this.studentRepository = new StudentMemoryRepository();
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     public Student create(Student student) {
         // validate data
         // does student already exist
+        student.setId(UUID.randomUUID().toString());
         return studentRepository.save(student);
     }
 

@@ -2,16 +2,19 @@ package at.technikum.application.moodle;
 
 import at.technikum.application.moodle.controller.Controller;
 import at.technikum.application.moodle.controller.StudentController;
+import at.technikum.application.moodle.data.ConnectionPool;
+import at.technikum.application.moodle.repository.StudentDbRepository;
+import at.technikum.application.moodle.repository.StudentMemoryRepository;
+import at.technikum.application.moodle.repository.StudentRepository;
 import at.technikum.application.moodle.routing.ControllerNotFoundException;
 import at.technikum.application.moodle.routing.Router;
+import at.technikum.application.moodle.service.StudentService;
 import at.technikum.server.Application;
 import at.technikum.server.http.Request;
 import at.technikum.server.http.Response;
 import at.technikum.server.http.Status;
 
 public class Moodle implements Application {
-
-    private final StudentController studentController = new StudentController();
 
     private final Router router;
 
@@ -30,6 +33,7 @@ public class Moodle implements Application {
             return controller.handle(request);
 
         } catch (ControllerNotFoundException e) {
+            // TODO: better exception handling, map exception to http code?
             Response response = new Response();
             response.setStatus(Status.NOT_FOUND);
 
@@ -44,6 +48,11 @@ public class Moodle implements Application {
     }
 
     private void initializeRoutes() {
-        this.router.addRoute("/students", new StudentController());
+        ConnectionPool connectionPool = new ConnectionPool();
+
+        StudentRepository studentRepository = new StudentDbRepository(connectionPool);
+        StudentService studentService = new StudentService(studentRepository);
+
+        this.router.addRoute("/students", new StudentController(studentService));
     }
 }
