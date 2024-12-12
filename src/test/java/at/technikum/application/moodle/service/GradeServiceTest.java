@@ -25,11 +25,14 @@ class GradeServiceTest {
         ));
         GradeService gradeService = new GradeService(gradeRepository);
 
+        Student student = new Student();
+
         // Act
-        float avg = gradeService.calcAvgGrade(new Student());
+        float avg = gradeService.calcAvgGrade(student);
 
         // Assert
         assertEquals(2.0f, avg);
+        verify(gradeRepository, times(1)).findByStudent(student);
 
         /*
         assertThrows(
