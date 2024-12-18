@@ -1,12 +1,13 @@
 package at.technikum.application.moodle;
 
 import at.technikum.application.moodle.controller.Controller;
+import at.technikum.application.moodle.controller.HealthController;
 import at.technikum.application.moodle.controller.StudentController;
+import at.technikum.application.moodle.controller.WaitController;
 import at.technikum.application.moodle.data.ConnectionPool;
 import at.technikum.application.moodle.repository.StudentDbRepository;
-import at.technikum.application.moodle.repository.StudentMemoryRepository;
 import at.technikum.application.moodle.repository.StudentRepository;
-import at.technikum.application.moodle.routing.ControllerNotFoundException;
+import at.technikum.application.moodle.exception.ControllerNotFoundException;
 import at.technikum.application.moodle.routing.Router;
 import at.technikum.application.moodle.service.StudentService;
 import at.technikum.server.Application;
@@ -54,5 +55,7 @@ public class Moodle implements Application {
         StudentService studentService = new StudentService(studentRepository);
 
         this.router.addRoute("/students", new StudentController(studentService));
+        this.router.addRoute("/wait", new WaitController());
+        this.router.addRoute("/health", new HealthController());
     }
 }

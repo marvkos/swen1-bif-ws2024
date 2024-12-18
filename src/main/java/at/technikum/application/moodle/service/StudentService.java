@@ -2,7 +2,6 @@ package at.technikum.application.moodle.service;
 
 import at.technikum.application.moodle.entity.Student;
 import at.technikum.application.moodle.exception.EntityNotFoundException;
-import at.technikum.application.moodle.repository.StudentMemoryRepository;
 import at.technikum.application.moodle.repository.StudentRepository;
 
 import java.util.List;
